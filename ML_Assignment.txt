@@ -1,0 +1,48 @@
+In this assignment, we start by removing some data that are clearly meaningless, 
+like the time the exercises took place, or the participants' names. 
+
+Then, we delete predictors of the training set that contain missing values.
+
+Then we separate the training data set into 70% of it for training and 30% of 
+it for testing. 
+
+Data spliting
+In order to get out-of-sample errors, we split the cleaned training set trainData into a 
+training set (train, 70%) for prediction and a validation set (valid 30%) to compute the 
+out-of-sample errors.
+
+We'll use k=4 for the k-fold cross validation and we'll use random forests to predict the outcome.
+
+The accuracy rate is 0.991 and the o.o.s. error rate is 0.009.
+
+We then use random forests to predict the outcome variable classe for the testing set.
+
+Result:
+13737 samples
+   52 predictor
+    5 classes: 'A', 'B', 'C', 'D', 'E' 
+
+No pre-processing
+Resampling: Cross-Validated (4 fold) 
+Summary of sample sizes: 10304, 10303, 10303, 10301 
+Resampling results across tuning parameters:
+
+  mtry  Accuracy  Kappa 
+   2    0.9908    0.9883
+  27    0.9906    0.9881
+  52    0.9849    0.9809
+
+Accuracy was used to select the optimal model using 
+ the largest value.
+The final value used for the model was mtry = 2. 
+
+> predict_rf <- predict(fit_rf, valid)
+
+> conf_rf <- confusionMatrix(valid$classe, predict_rf)
+
+> accuracy_rf <- conf_rf$overall[1]
+
+> # Predicting on test data
+> predict(fit_rf, testData)
+ [1] B A B A A E D B A A B C B A E E A B B B
+Levels: A B C D E
